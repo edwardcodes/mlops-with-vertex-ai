@@ -18,19 +18,8 @@ from google.cloud import aiplatform as vertex_ai
 
 
 def _get_source_query(bq_dataset_name, bq_table_name, ml_use, limit=None):
-    query = f"""
-    SELECT 
-        IF(trip_month IS NULL, -1, trip_month) trip_month,
-        IF(trip_day IS NULL, -1, trip_day) trip_day,
-        IF(trip_day_of_week IS NULL, -1, trip_day_of_week) trip_day_of_week,
-        IF(trip_hour IS NULL, -1, trip_hour) trip_hour,
-        IF(trip_seconds IS NULL, -1, trip_seconds) trip_seconds,
-        IF(trip_miles IS NULL, -1, trip_miles) trip_miles,
-        IF(payment_type IS NULL, 'NA', payment_type) payment_type,
-        IF(pickup_grid IS NULL, 'NA', pickup_grid) pickup_grid,
-        IF(dropoff_grid IS NULL, 'NA', dropoff_grid) dropoff_grid,
-        IF(euclidean IS NULL, -1, euclidean) euclidean,
-        IF(loc_cross IS NULL, 'NA', loc_cross) loc_cross"""
+    query = "\x1f    SELECT \x1f        IF(trip_month IS NULL, -1, trip_month) trip_month,\x1f        IF(trip_day IS NULL, -1, trip_day) trip_day,\x1f        IF(trip_day_of_week IS NULL, -1, trip_day_of_week) trip_day_of_week,\x1f        IF(trip_hour IS NULL, -1, trip_hour) trip_hour,\x1f        IF(trip_seconds IS NULL, -1, trip_seconds) trip_seconds,\x1f        IF(trip_miles IS NULL, -1, trip_miles) trip_miles,\x1f        IF(payment_type IS NULL, 'NA', payment_type) payment_type,\x1f        IF(pickup_grid IS NULL, 'NA', pickup_grid) pickup_grid,\x1f        IF(dropoff_grid IS NULL, 'NA', dropoff_grid) dropoff_grid,\x1f        IF(euclidean IS NULL, -1, euclidean) euclidean,\x1f        IF(loc_cross IS NULL, 'NA', loc_cross) loc_cross"
+
     if ml_use:
         query += f""",
         tip_bin

@@ -36,7 +36,7 @@ def run_fn(fn_args):
 
     hyperparams = fn_args.hyperparameters
     if not hyperparams:
-        hyperparams = dict()
+        hyperparams = {}
 
     hyperparams = defaults.update_hyperparams(hyperparams)
     logging.info("Hyperparameter:")

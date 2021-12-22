@@ -52,12 +52,9 @@ def test_model_artifact():
         "trip_seconds": tf.dtypes.int64,
     }
 
-    new_test_instance = dict()
-    for key in test_instance:
-        new_test_instance[key] = tf.constant(
+    new_test_instance = {key: tf.constant(
             [test_instance[key]], dtype=feature_types[key]
-        )
-
+        ) for key in test_instance}
     print(new_test_instance)
 
     project = os.getenv("PROJECT")
