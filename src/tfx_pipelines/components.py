@@ -58,11 +58,13 @@ def hyperparameters_gen(
     hyperparameters: OutputArtifact[HyperParameters],
 ):
 
-    hp_dict = dict()
-    hp_dict["num_epochs"] = num_epochs
-    hp_dict["batch_size"] = batch_size
-    hp_dict["learning_rate"] = learning_rate
-    hp_dict["hidden_units"] = [int(units) for units in hidden_units.split(",")]
+    hp_dict = {
+        'num_epochs': num_epochs,
+        'batch_size': batch_size,
+        'learning_rate': learning_rate,
+        'hidden_units': [int(units) for units in hidden_units.split(",")],
+    }
+
     logging.info(f"Hyperparameters: {hp_dict}")
 
     hyperparams_uri = os.path.join(
@@ -86,10 +88,13 @@ def vertex_model_uploader(
 ):
 
     vertex_ai.init(project=project, location=region)
-    
+
     blessing = artifact_utils.get_single_instance([model_blessing])
     if not model_utils.is_model_blessed(blessing):
-        logging.info(f"Model is not uploaded to Vertex AI because it was not blessed by the evaluator.")
+        logging.info(
+            'Model is not uploaded to Vertex AI because it was not blessed by the evaluator.'
+        )
+
         uploaded_model.set_int_custom_property("uploaded", 0)
         return
 
@@ -111,7 +116,7 @@ def vertex_model_uploader(
     except:
         explanation_metadata = None
         explanation_parameters = None
-        
+
     try:
         labels = json.loads(labels)
     except:
